@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action0"
+        android:title="正常效果" />
+
+    <item
+        android:id="@+id/action1"
+        android:title="空数据效果（自定义）" />
+
+    <item
+        android:id="@+id/action2"
+        android:title="数据异常效果（自定义）" />
+
+    <item
+        android:id="@+id/action3"
+        android:title="网络异常效果" />
+
+</menu>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/activity_loading_process.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/activity_switch_state.xml" value="0.22" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/activity_xml_config.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/content_main.xml" value="0.2046875" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/fragment_first.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/fragment_first2.xml" value="0.22135416666666666" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/fragment_second.xml" value="0.33" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/view_empty_new.xml" value="0.28020833333333334" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/view_empty_search.xml" value="0.33" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/layout/view_item_faq.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/menu/menu_config.xml" value="0.28020833333333334" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/menu/menu_main.xml" value="0.2046875" />
+        <entry key="..\:/Github/LoadingLayout/app/src/main/res/menu/menu_second.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/drawable/mmm_goback_ripple1.xml" value="0.22083333333333333" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/drawable/mmm_reload_ripple1.xml" value="0.38229166666666664" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/layout/view_load_state_end_empty.xml" value="0.25" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/layout/view_load_state_end_failure.xml" value="0.36614583333333334" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/layout/view_load_state_end_network_error.xml" value="0.36614583333333334" />
+        <entry key="..\:/Github/LoadingLayout/library/src/main/res/layout/view_load_state_start.xml" value="0.36614583333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

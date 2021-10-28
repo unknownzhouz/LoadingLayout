@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/ic_message_empty"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:text="自定义页面布局"
+        android:textColor="#999999" />
+
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/mmm_goback_ripple1"
+        android:gravity="center"
+        android:text="回首页"
+        android:textColor="#FFFFFF"
+        android:textSize="14dp" />
+</LinearLayout>
+
+

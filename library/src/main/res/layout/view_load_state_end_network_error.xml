@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llLoadState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNetworkError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:drawableTop="@drawable/loadstate_net_failed"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
+            android:drawablePadding="10dp"
+            android:text="网络异常，请重试~"
+            android:textColor="#999999"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/reloadView"
+            android:layout_width="180dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/mmm_reload_ripple1"
+            android:gravity="center"
+            android:text="重新加载"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp" />
+    </LinearLayout>
+</merge>

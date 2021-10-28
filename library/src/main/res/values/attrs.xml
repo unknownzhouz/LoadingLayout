@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+
+
+    <declare-styleable name="LoadStateView">
+        <attr name="ls_layoutLoading" format="reference" />
+        <attr name="ls_layoutEmptyData" format="reference" />
+        <attr name="ls_layoutErrorData" format="reference" />
+        <attr name="ls_layoutErrorNet" format="reference" />
+
+        <attr name="ls_emptyText" format="string" />
+        <attr name="ls_emptyIcon" format="reference" />
+        <attr name="ls_errorDataText" format="string" />
+        <attr name="ls_errorDataIcon" format="reference" />
+        <attr name="ls_errorNetText" format="string" />
+        <attr name="ls_errorNetIcon" format="reference" />
+    </declare-styleable>
+
+</resources>

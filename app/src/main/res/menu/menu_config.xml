@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action0"
+        android:title="空数据Model样式" />
+
+    <item
+        android:id="@+id/action1"
+        android:title="多种Model样式" />
+
+    <item
+        android:id="@+id/action2"
+        android:title="配置空页面" />
+
+</menu>
