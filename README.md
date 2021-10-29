@@ -2,6 +2,10 @@
 
 布局状态加载库，主要是为了简化进入页面时，从加载数据到返回数据这个过程的各种状态情况，提供一套通用的显示方案；支持在不同场景下的UI显示效果；
 
+![gif](https://github.com/unknownzhouz/LoadingLayout/blob/main/static/Screenrecorder-2021-10-29-14-45-28-524.gif)
+
+
+
 ### 使用规范
 
 - `LoadStateLayout` 布局中，只能有一个子布局；
