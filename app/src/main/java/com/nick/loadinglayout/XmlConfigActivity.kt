@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import com.nick.loading.LoadState
-import com.nick.loading.LoadStateView
+import com.nick.loading.State
+import com.nick.loading.LoadStateLayout
 import com.nick.loadinglayout.databinding.ActivityXmlConfigBinding
 
 
@@ -13,7 +13,7 @@ class XmlConfigActivity : AppCompatActivity() {
     private lateinit var binding: ActivityXmlConfigBinding
 
 
-    private var loadStateView: LoadStateView? = null
+    private var loadStateLayout: LoadStateLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,30 +26,30 @@ class XmlConfigActivity : AppCompatActivity() {
         }
 
         binding.btnSwitchState.setOnClickListener {
-            when (loadStateView?.state) {
-                LoadState.AttachView -> {
-                    loadStateView?.state = LoadState.Loading
+            when (loadStateLayout?.state) {
+                State.AttachView -> {
+                    loadStateLayout?.state = State.Loading
                 }
-                LoadState.Loading -> {
-                    loadStateView?.state = LoadState.EmptyData
+                State.Loading -> {
+                    loadStateLayout?.state = State.EmptyData
                 }
-                LoadState.EmptyData -> {
-                    loadStateView?.state = LoadState.ErrorData
+                State.EmptyData -> {
+                    loadStateLayout?.state = State.ErrorData
                 }
-                LoadState.ErrorData -> {
-                    loadStateView?.state = LoadState.ErrorNetwork
+                State.ErrorData -> {
+                    loadStateLayout?.state = State.ErrorNetwork
                 }
-                LoadState.ErrorNetwork -> {
-                    loadStateView?.state = LoadState.AttachView
+                State.ErrorNetwork -> {
+                    loadStateLayout?.state = State.AttachView
                 }
             }
         }
 
         hideAllLoadState()
         // 默认状态
-        loadStateView = binding.loadStateView1
-        loadStateView?.visibility = View.VISIBLE
-        loadStateView?.state = LoadState.AttachView
+        loadStateLayout = binding.loadStateView1
+        loadStateLayout?.visibility = View.VISIBLE
+        loadStateLayout?.state = State.AttachView
     }
 
     private fun showPopupMenu(view: View) {
@@ -59,18 +59,18 @@ class XmlConfigActivity : AppCompatActivity() {
             hideAllLoadState()
             when (it.itemId) {
                 R.id.action0 -> {
-                    loadStateView = binding.loadStateView1
+                    loadStateLayout = binding.loadStateView1
                 }
                 R.id.action1 -> {
-                    loadStateView = binding.loadStateView2
+                    loadStateLayout = binding.loadStateView2
                 }
                 R.id.action2 -> {
-                    loadStateView = binding.loadStateView3
+                    loadStateLayout = binding.loadStateView3
                 }
             }
 
-            loadStateView?.visibility = View.VISIBLE
-            loadStateView?.state = LoadState.AttachView
+            loadStateLayout?.visibility = View.VISIBLE
+            loadStateLayout?.state = State.AttachView
 
             true
         }

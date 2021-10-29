@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 
 
-class LoadStateView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
+class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
 
     /**
      * 自定义视图
      */
-    var buildStateView: ((state: LoadState) -> StateView?)? = null
+    var buildStateView: ((state: State) -> StateView?)? = null
 
     /**
      * 自定义视图文本、图标
      */
-    var buildStateModel: ((state: LoadState) -> StateModel?)? = null
+    var buildStateModel: ((state: State) -> StateModel?)? = null
 
     /**
      * 自定义视图坐标偏移量（正负方向）
      */
-    var offsetStateView: ((state: LoadState) -> Point?)? = null
+    var offsetStateView: ((state: State) -> Point?)? = null
 
     /**
      * 重新加载（数据异常、网络异常使用）
@@ -35,7 +35,7 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 状态枚举
      */
-    var state: LoadState = LoadState.AttachView
+    var state: State = State.AttachView
         set(value) {
             if (field == value) {
                 return
@@ -65,27 +65,27 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
             }
 
             // 主视图显示与隐藏
-            getChildAt(0)?.visibility = if (value == LoadState.AttachView) VISIBLE else GONE
+            getChildAt(0)?.visibility = if (value == State.AttachView) VISIBLE else GONE
         }
 
     init {
         attrs?.let {
-            val ta: TypedArray = context.obtainStyledAttributes(it, R.styleable.LoadStateView)
-            config.layoutLoading = ta.getResourceId(R.styleable.LoadStateView_ls_layoutLoading, 0)
-            config.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateView_ls_layoutEmptyData, 0)
-            config.layoutErrorData = ta.getResourceId(R.styleable.LoadStateView_ls_layoutErrorData, 0)
-            config.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateView_ls_layoutErrorNet, 0)
+            val ta: TypedArray = context.obtainStyledAttributes(it, R.styleable.LoadStateLayout)
+            config.layoutLoading = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutLoading, 0)
+            config.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutEmptyData, 0)
+            config.layoutErrorData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorData, 0)
+            config.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorNet, 0)
 
-            val emptyText = ta.getString(R.styleable.LoadStateView_ls_emptyText) ?: ""
-            val emptyIcon = ta.getResourceId(R.styleable.LoadStateView_ls_emptyIcon, 0)
+            val emptyText = ta.getString(R.styleable.LoadStateLayout_ls_emptyText) ?: ""
+            val emptyIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_emptyIcon, 0)
             config.emptyModel = StyleConfig.buildStateModel(emptyText, emptyIcon)
 
-            val errorDataText = ta.getString(R.styleable.LoadStateView_ls_errorDataText) ?: ""
-            val errorDataIcon = ta.getResourceId(R.styleable.LoadStateView_ls_errorDataIcon, 0)
+            val errorDataText = ta.getString(R.styleable.LoadStateLayout_ls_errorDataText) ?: ""
+            val errorDataIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorDataIcon, 0)
             config.errorDataModel = StyleConfig.buildStateModel(errorDataText, errorDataIcon)
 
-            val errorNetText = ta.getString(R.styleable.LoadStateView_ls_errorNetText) ?: ""
-            val errorNetIcon = ta.getResourceId(R.styleable.LoadStateView_ls_errorNetIcon, 0)
+            val errorNetText = ta.getString(R.styleable.LoadStateLayout_ls_errorNetText) ?: ""
+            val errorNetIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorNetIcon, 0)
             config.errorNetModel = StyleConfig.buildStateModel(errorNetText, errorNetIcon)
 
             ta.recycle()
@@ -123,7 +123,7 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * 默认StateView
      */
-    private fun defaultStateView(state: LoadState): StateView? {
+    private fun defaultStateView(state: State): StateView? {
         // 使用自定义Model
         var model = buildStateModel?.invoke(state)
 
@@ -138,19 +138,19 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         var view: StateView? = null
         when (state) {
-            LoadState.AttachView -> {
+            State.AttachView -> {
                 view = null
             }
-            LoadState.Loading -> {
+            State.Loading -> {
                 view = LoadingView(context)
             }
-            LoadState.EmptyData -> {
+            State.EmptyData -> {
                 view = EmptyDataView(context, model = model)
             }
-            LoadState.ErrorData -> {
+            State.ErrorData -> {
                 view = ErrorDataView(context, model = model, reload = reload)
             }
-            LoadState.ErrorNetwork -> {
+            State.ErrorNetwork -> {
                 view = ErrorNetworkView(context, model = model, reload = reload)
             }
         }
@@ -158,15 +158,15 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
         return view
     }
 
-    private fun defaultStateModel(state: LoadState): StateModel? {
+    private fun defaultStateModel(state: State): StateModel? {
         return when (state) {
-            LoadState.EmptyData -> {
+            State.EmptyData -> {
                 StateModel.defaultEmptyData()
             }
-            LoadState.ErrorData -> {
+            State.ErrorData -> {
                 StateModel.defaultErrorData()
             }
-            LoadState.ErrorNetwork -> {
+            State.ErrorNetwork -> {
                 StateModel.defaultErrorNetwork()
             }
             else -> {
@@ -185,43 +185,43 @@ class LoadStateView @JvmOverloads constructor(context: Context, attrs: Attribute
         var errorDataModel: StateModel? = null
         var errorNetModel: StateModel? = null
 
-        fun getStateModel(state: LoadState): StateModel? {
+        fun getStateModel(state: State): StateModel? {
             return when (state) {
-                LoadState.EmptyData -> {
+                State.EmptyData -> {
                     emptyModel
                 }
-                LoadState.ErrorData -> {
+                State.ErrorData -> {
                     errorDataModel
                 }
-                LoadState.ErrorNetwork -> {
+                State.ErrorNetwork -> {
                     errorNetModel
                 }
                 else -> null
             }
         }
 
-        fun buildStateView(context: Context, state: LoadState): StateView? {
+        fun buildStateView(context: Context, state: State): StateView? {
             var view: StateView? = null
             when (state) {
-                LoadState.AttachView -> {
+                State.AttachView -> {
                     view = null
                 }
-                LoadState.Loading -> {
+                State.Loading -> {
                     if (0 != layoutLoading) {
                         view = LoadingView(context, layoutLoading)
                     }
                 }
-                LoadState.EmptyData -> {
+                State.EmptyData -> {
                     if (0 != layoutEmptyData) {
                         view = EmptyDataView(context, layoutEmptyData)
                     }
                 }
-                LoadState.ErrorData -> {
+                State.ErrorData -> {
                     if (0 != layoutErrorData) {
                         view = ErrorDataView(context, layoutErrorData)
                     }
                 }
-                LoadState.ErrorNetwork -> {
+                State.ErrorNetwork -> {
                     if (0 != layoutErrorNet) {
                         view = ErrorNetworkView(context, layoutErrorNet)
                     }

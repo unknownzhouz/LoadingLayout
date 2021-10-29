@@ -15,7 +15,7 @@
     </declare-styleable>
 
 
-    <declare-styleable name="LoadStateView">
+    <declare-styleable name="LoadStateLayout">
         <attr name="ls_layoutLoading" format="reference" />
         <attr name="ls_layoutEmptyData" format="reference" />
         <attr name="ls_layoutErrorData" format="reference" />

@@ -39,7 +39,7 @@
         android:layout_height="match_parent"
         android:background="#Cfffff">
 
-        <com.nick.loading.LoadStateView
+        <com.nick.loading.LoadStateLayout
             android:id="@+id/loadStateView1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -58,9 +58,9 @@
                 android:gravity="center"
                 android:text="XML配置：空数据Model"
                 android:textStyle="bold" />
-        </com.nick.loading.LoadStateView>
+        </com.nick.loading.LoadStateLayout>
 
-        <com.nick.loading.LoadStateView
+        <com.nick.loading.LoadStateLayout
             android:id="@+id/loadStateView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -81,10 +81,10 @@
                 android:gravity="center"
                 android:text="XML配置：空数据/网络异常Model"
                 android:textStyle="bold" />
-        </com.nick.loading.LoadStateView>
+        </com.nick.loading.LoadStateLayout>
 
 
-        <com.nick.loading.LoadStateView
+        <com.nick.loading.LoadStateLayout
             android:id="@+id/loadStateView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -102,7 +102,7 @@
                 android:gravity="center"
                 android:text="XML配置：配置空页面\n自定义布局"
                 android:textStyle="bold" />
-        </com.nick.loading.LoadStateView>
+        </com.nick.loading.LoadStateLayout>
 
 
         <Button

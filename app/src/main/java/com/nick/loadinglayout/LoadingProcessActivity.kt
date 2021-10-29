@@ -6,17 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nick.loading.LoadState
+import com.nick.loading.State
 import com.nick.loading.StateModel
 import com.nick.loadinglayout.databinding.ActivityLoadingProcessBinding
 import com.nick.loadinglayout.databinding.ViewItemFaqBinding
@@ -48,12 +42,12 @@ class LoadingProcessActivity : AppCompatActivity() {
         }
 
         binding.loadStateView.reload = {
-            playStateView(LoadState.AttachView)
+            playStateView(State.AttachView)
         }
 
         binding.loadStateView.offsetStateView = {
             when (it) {
-                LoadState.Loading -> {
+                State.Loading -> {
                     val point = Point()
                     point.y = -600
                     point
@@ -65,7 +59,7 @@ class LoadingProcessActivity : AppCompatActivity() {
         }
 
         binding.loadStateView.buildStateModel = {
-            if (it == LoadState.ErrorData) {
+            if (it == State.ErrorData) {
                 val model = StateModel()
                 model.title = "数据异常\n替换新文本内容和新图标"
                 model.iconId = R.drawable.ic_computer
@@ -76,7 +70,7 @@ class LoadingProcessActivity : AppCompatActivity() {
         }
 
         binding.loadStateView.buildStateView = {
-            if (it == LoadState.EmptyData) {
+            if (it == State.EmptyData) {
                 EmptyFactory.SearchView(this, goBack = {
                     onBackPressed()
                  })
@@ -100,16 +94,16 @@ class LoadingProcessActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action0 -> {
-                    playStateView(LoadState.AttachView)
+                    playStateView(State.AttachView)
                 }
                 R.id.action1 -> {
-                    playStateView(LoadState.EmptyData)
+                    playStateView(State.EmptyData)
                 }
                 R.id.action2 -> {
-                    playStateView(LoadState.ErrorData)
+                    playStateView(State.ErrorData)
                 }
                 R.id.action3 -> {
-                    playStateView(LoadState.ErrorNetwork)
+                    playStateView(State.ErrorNetwork)
                 }
             }
             true
@@ -117,9 +111,9 @@ class LoadingProcessActivity : AppCompatActivity() {
         popupMenu.show()
     }
 
-    private fun playStateView(finish: LoadState) {
+    private fun playStateView(finish: State) {
         startProcess = true
-        binding.loadStateView.state = LoadState.Loading
+        binding.loadStateView.state = State.Loading
         binding.loadStateView.postDelayed({
             binding.loadStateView.state = finish
             startProcess = false

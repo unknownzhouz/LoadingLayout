@@ -38,7 +38,7 @@
         android:layout_height="match_parent"
         android:background="#Cfffff">
 
-        <com.nick.loading.LoadStateView
+        <com.nick.loading.LoadStateLayout
             android:id="@+id/loadStateView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -60,7 +60,7 @@
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </com.nick.loading.LoadStateView>
+        </com.nick.loading.LoadStateLayout>
 
         <Button
             android:id="@+id/switchState"
@@ -73,7 +73,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loadStateView" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

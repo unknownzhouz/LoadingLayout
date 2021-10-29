@@ -1,6 +1,6 @@
 package com.nick.loading
 
-enum class LoadState {
+enum class State {
     AttachView,      // 主视图（子布局中第一个视图）
     Loading,         // 加载中
     EmptyData,       // 空数据

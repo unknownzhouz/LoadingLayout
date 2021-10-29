@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.nick.loading.LoadStateView
+        <com.nick.loading.LoadStateLayout
             android:id="@+id/loadStateView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -55,7 +55,7 @@
                 android:gravity="center"
                 android:text="点击【状态切换】\n更换不种状态下通用视图效果"
                 android:textStyle="bold" />
-        </com.nick.loading.LoadStateView>
+        </com.nick.loading.LoadStateLayout>
 
         <Button
             android:id="@+id/btnSwitchState"
