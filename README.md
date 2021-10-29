@@ -6,13 +6,13 @@
 
 
 
-### 使用规范
+### 一、使用规范
 
 - `LoadStateLayout` 布局中，只能有一个子布局；
 - 代码中重写状态视图会直接覆盖XML中的配置；
 - 同状态下自定义布局优先级高于自定义`StateModel`（如. 配置了`ls_layoutEmptyData` 布局会覆盖 `ls_emptyText`、`ls_emptyIcon` 的作用）；
 
-### XML配置状态
+### 二、布局中配置状态视图
 
 ```xml
 <!-- 当设置状态为EmptyData时，会调用自定义空数据布局 view_empty_new -->
@@ -43,12 +43,12 @@
 | ls_errorNetText | 网络异常Model文本 | string |
 | ls_errorNetIcon | 网络异常Model图标 | reference（资源ID） |
 
-### 代码重写状态
+### 三、通过代码重写状态
 
 加载过程中状态变化的枚举，以及自定义的空数据显示视图（自己工程定义）；
 
 ```kotlin
-enum class LoadState {
+enum class State {
     AttachView,      // 主视图（子布局中第一个视图）
     Loading,         // 加载中
     EmptyData,       // 空数据
@@ -78,7 +78,7 @@ object EmptyFactory {
 ```kotlin
    // 状态为数据异常时，显示自定义StateModel（其它使用默认）
    loadStateLayout.buildStateModel = {
-        if (it == LoadState.ErrorData) {
+        if (it == State.ErrorData) {
             val model = StateModel()
             model.title = "数据异常\n替换新文本内容和新图标"
             model.iconId = R.drawable.ic_computer
@@ -90,7 +90,7 @@ object EmptyFactory {
 
        // 状态为空数据时，显示自定义View视图（其它使用默认）
     loadStateLayout.buildStateView = {
-         if (it == LoadState.EmptyData) {
+         if (it == State.EmptyData) {
              EmptyFactory.SearchView(this, goBack = {
                  onBackPressed()
               })
@@ -108,7 +108,7 @@ object EmptyFactory {
     /**
      * 自定义视图坐标偏移量（正负方向）
      */
-    var offsetStateView: ((state: LoadState) -> Point?)? = null 
+    var offsetStateView: ((state: State) -> Point?)? = null 
 
     /**
      * 重新加载（数据异常、网络异常使用）

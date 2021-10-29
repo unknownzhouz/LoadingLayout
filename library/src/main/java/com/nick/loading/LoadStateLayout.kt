@@ -30,7 +30,11 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
      */
     var reload: (() -> Unit)? = null
 
-    private val config = StyleConfig()
+    /**
+     * xml配置信息
+     */
+    private var xmlConfig: StyleConfig? = null
+
 
     /**
      * 状态枚举
@@ -46,18 +50,33 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
             // 移除最后一次状态视图
             removeStateView()
 
-            // 使用自定义状态视图
+            // 自定义布局
             var view = buildStateView?.invoke(value)
 
-            // 使用xml配置视图
+            // xml配置布局
             if (null == view) {
-                view = config.buildStateView(context, value)
+                view = xmlConfig?.buildViewByState(context, value)
+            }
+            // 全局配置布局
+            if (null == view) {
+                view = StyleConfig.global.buildViewByState(context, value)
             }
 
-            // 使用默认视图
-            if (null == view) {
-                view = defaultStateView(value)
+            // 自定义Model
+            var model = buildStateModel?.invoke(value)
+
+            // xml配置Model
+            if (null == model) {
+                model = xmlConfig?.getStateModel(value)
             }
+            // 全局配置Model
+            if (null == model) {
+                model = StyleConfig.global.getStateModel(value)
+            }
+
+            // View绑定Model数据
+            view?.bindData(model, reload)
+
 
             // 添加状态视图
             if (null != view) {
@@ -70,28 +89,9 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
 
     init {
         attrs?.let {
-            val ta: TypedArray = context.obtainStyledAttributes(it, R.styleable.LoadStateLayout)
-            config.layoutLoading = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutLoading, 0)
-            config.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutEmptyData, 0)
-            config.layoutErrorData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorData, 0)
-            config.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorNet, 0)
-
-            val emptyText = ta.getString(R.styleable.LoadStateLayout_ls_emptyText) ?: ""
-            val emptyIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_emptyIcon, 0)
-            config.emptyModel = StyleConfig.buildStateModel(emptyText, emptyIcon)
-
-            val errorDataText = ta.getString(R.styleable.LoadStateLayout_ls_errorDataText) ?: ""
-            val errorDataIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorDataIcon, 0)
-            config.errorDataModel = StyleConfig.buildStateModel(errorDataText, errorDataIcon)
-
-            val errorNetText = ta.getString(R.styleable.LoadStateLayout_ls_errorNetText) ?: ""
-            val errorNetIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorNetIcon, 0)
-            config.errorNetModel = StyleConfig.buildStateModel(errorNetText, errorNetIcon)
-
-            ta.recycle()
+            xmlConfig = StyleConfig.loadXmlConfig(context, it)
         }
     }
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -109,7 +109,6 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-
     /**
      * 移除状态视图
      */
@@ -120,62 +119,10 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
+
     /**
-     * 默认StateView
+     * 配置信息
      */
-    private fun defaultStateView(state: State): StateView? {
-        // 使用自定义Model
-        var model = buildStateModel?.invoke(state)
-
-        // 使用xml配置视图
-        if (null == model) {
-            model = config.getStateModel(state)
-        }
-
-        // 使用默认Model
-        if (null == model) {
-            model = defaultStateModel(state)
-        }
-        var view: StateView? = null
-        when (state) {
-            State.AttachView -> {
-                view = null
-            }
-            State.Loading -> {
-                view = LoadingView(context)
-            }
-            State.EmptyData -> {
-                view = EmptyDataView(context, model = model)
-            }
-            State.ErrorData -> {
-                view = ErrorDataView(context, model = model, reload = reload)
-            }
-            State.ErrorNetwork -> {
-                view = ErrorNetworkView(context, model = model, reload = reload)
-            }
-        }
-
-        return view
-    }
-
-    private fun defaultStateModel(state: State): StateModel? {
-        return when (state) {
-            State.EmptyData -> {
-                StateModel.defaultEmptyData()
-            }
-            State.ErrorData -> {
-                StateModel.defaultErrorData()
-            }
-            State.ErrorNetwork -> {
-                StateModel.defaultErrorNetwork()
-            }
-            else -> {
-                null
-            }
-        }
-    }
-
-
     class StyleConfig {
         var layoutLoading = 0
         var layoutEmptyData = 0
@@ -200,45 +147,80 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
             }
         }
 
-        fun buildStateView(context: Context, state: State): StateView? {
+
+        fun buildViewByState(context: Context, state: State): StateView? {
             var view: StateView? = null
             when (state) {
                 State.AttachView -> {
                     view = null
                 }
                 State.Loading -> {
-                    if (0 != layoutLoading) {
-                        view = LoadingView(context, layoutLoading)
-                    }
+                    view = LoadingView(context, layoutLoading)
                 }
                 State.EmptyData -> {
-                    if (0 != layoutEmptyData) {
-                        view = EmptyDataView(context, layoutEmptyData)
-                    }
+                    view = EmptyDataView(context, layoutEmptyData)
                 }
                 State.ErrorData -> {
-                    if (0 != layoutErrorData) {
-                        view = ErrorDataView(context, layoutErrorData)
-                    }
+                    view = ErrorDataView(context, layoutErrorData)
                 }
                 State.ErrorNetwork -> {
-                    if (0 != layoutErrorNet) {
-                        view = ErrorNetworkView(context, layoutErrorNet)
-                    }
+                    view = ErrorNetworkView(context, layoutErrorNet)
                 }
             }
             return view
         }
 
+
         companion object {
-            fun buildStateModel(title: String, iconId: Int): StateModel? {
-                if (title.isNotEmpty() || iconId != 0) {
-                    val model = StateModel()
-                    model.title = title
-                    model.iconId = iconId
-                    return model
-                }
-                return null
+            /**
+             * 全局配置信息
+             */
+            var global = defaultConfig()
+
+            /**
+             * 默认布局配置信息
+             */
+            private fun defaultConfig(): StyleConfig {
+                val sc = StyleConfig()
+                sc.layoutLoading = R.layout.view_load_state_start
+                sc.layoutEmptyData = R.layout.view_load_state_end_empty
+                sc.layoutErrorData = R.layout.view_load_state_end_failure
+                sc.layoutErrorNet = R.layout.view_load_state_end_network_error
+                sc.emptyModel = StateModel.defaultEmptyData()
+                sc.errorDataModel = StateModel.defaultErrorData()
+                sc.errorNetModel = StateModel.defaultErrorNetwork()
+                return sc
+            }
+
+            /**
+             * XML布局配置信息
+             */
+            fun loadXmlConfig(context: Context, attrs: AttributeSet): StyleConfig {
+                val sc = StyleConfig()
+                val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadStateLayout)
+                sc.layoutLoading = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutLoading, R.layout.view_load_state_start)
+                sc.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutEmptyData, R.layout.view_load_state_end_empty)
+                sc.layoutErrorData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorData, R.layout.view_load_state_end_failure)
+                sc.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorNet, R.layout.view_load_state_end_network_error)
+
+                val emptyText = ta.getString(R.styleable.LoadStateLayout_ls_emptyText) ?: ""
+                val emptyIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_emptyIcon, 0)
+                sc.emptyModel = StateModel.buildStateModel(emptyText, emptyIcon)
+
+                val errorDataText = ta.getString(R.styleable.LoadStateLayout_ls_errorDataText) ?: ""
+                val errorDataIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorDataIcon, 0)
+                sc.errorDataModel = StateModel.buildStateModel(errorDataText, errorDataIcon)
+
+                val errorNetText = ta.getString(R.styleable.LoadStateLayout_ls_errorNetText) ?: ""
+                val errorNetIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorNetIcon, 0)
+                sc.errorNetModel = StateModel.buildStateModel(errorNetText, errorNetIcon)
+
+                ta.recycle()
+                return sc
+            }
+
+            fun initGlobalConfig(config: StyleConfig) {
+                global = config
             }
         }
 

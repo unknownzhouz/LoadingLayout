@@ -11,7 +11,18 @@ class StateModel {
      */
     var iconId: Int = 0
 
+
     companion object {
+
+        fun buildStateModel(title: String, iconId: Int): StateModel? {
+            if (title.isNotEmpty() || iconId != 0) {
+                val model = StateModel()
+                model.title = title
+                model.iconId = iconId
+                return model
+            }
+            return null
+        }
 
         fun defaultEmptyData(): StateModel {
             val model = StateModel()
@@ -19,7 +30,6 @@ class StateModel {
             model.iconId = R.drawable.loadstate_empty
             return model;
         }
-
 
         fun defaultErrorData(): StateModel {
             val model = StateModel()

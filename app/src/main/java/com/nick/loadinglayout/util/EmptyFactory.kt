@@ -3,6 +3,7 @@ package com.nick.loadinglayout.util
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.TextView
+import com.nick.loading.StateModel
 import com.nick.loading.StateView
 import com.nick.loadinglayout.R
 
@@ -18,6 +19,10 @@ object EmptyFactory {
             tvBack.setOnClickListener {
                 goBack.invoke()
             }
+        }
+
+        override fun bindData(model: StateModel?, reload: (() -> Unit)?) {
+
         }
     }
 }

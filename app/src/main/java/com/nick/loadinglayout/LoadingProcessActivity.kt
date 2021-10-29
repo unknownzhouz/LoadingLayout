@@ -73,7 +73,7 @@ class LoadingProcessActivity : AppCompatActivity() {
             if (it == State.EmptyData) {
                 EmptyFactory.SearchView(this, goBack = {
                     onBackPressed()
-                 })
+                })
             } else {
                 null
             }
