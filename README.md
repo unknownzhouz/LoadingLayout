@@ -9,8 +9,8 @@
 ### 一、使用规范
 
 - `LoadStateLayout` 布局中，只能有一个子布局；
-- 代码中重写状态视图会直接覆盖XML中的配置；
-- 同状态下自定义布局优先级高于自定义`StateModel`（如. 配置了`ls_layoutEmptyData` 布局会覆盖 `ls_emptyText`、`ls_emptyIcon` 的作用）；
+- 代码中重写状态视图会直接覆盖 `.xml`布局中的配置；
+- 同状态下自定义布局优先级高于自定义`StateModel`
 
 ### 二、布局中配置状态视图
 
