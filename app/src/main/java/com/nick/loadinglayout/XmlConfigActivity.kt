@@ -21,6 +21,10 @@ class XmlConfigActivity : AppCompatActivity() {
         binding = ActivityXmlConfigBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.btnConfig.setOnClickListener {
             showPopupMenu(it)
         }

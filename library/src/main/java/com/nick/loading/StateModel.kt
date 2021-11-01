@@ -25,24 +25,15 @@ class StateModel {
         }
 
         fun defaultEmptyData(): StateModel {
-            val model = StateModel()
-            model.title = "暂无数据哦~"
-            model.iconId = R.drawable.loadstate_empty
-            return model;
+            return buildStateModel("暂无数据哦~", R.drawable.loadstate_empty)!!
         }
 
         fun defaultErrorData(): StateModel {
-            val model = StateModel()
-            model.title = "数据异常，请重试~"
-            model.iconId = R.drawable.loadstate_data_failed
-            return model;
+            return buildStateModel("数据异常，请重试~", R.drawable.loadstate_data_failed)!!;
         }
 
         fun defaultErrorNetwork(): StateModel {
-            val model = StateModel()
-            model.title = "网络异常，请重试~"
-            model.iconId = R.drawable.loadstate_net_failed
-            return model;
+            return buildStateModel("网络异常，请重试~", R.drawable.loadstate_net_failed)!!;
         }
 
     }
