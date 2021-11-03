@@ -135,8 +135,6 @@ allprojects {
 在 module `build.gradle` 添加依赖
 
 ```kotlin
-	dependencies {
-	        implementation 'com.github.unknownzhouz:LoadingLayout:1.0.0'
-	}
+implementation 'com.github.unknownzhouz:LoadingLayout:1.0.0'
 ```
 
