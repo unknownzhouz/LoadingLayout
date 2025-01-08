@@ -30,18 +30,20 @@
 </com.nick.loading.LoadStateLayout>
 ```
 
-| 属性参数 | 描述             | 格式 |
-| :--------    | :------------------:     | :--------    |
-| ls_layoutLoading | 加载时显示布局 | reference（@LayoutRes） |
-| ls_layoutEmptyData | 空数据显示布局          | reference（@LayoutRes） |
-| ls_layoutErrorData | 数据异常显示布局  | reference（@LayoutRes） |
-| ls_layoutErrorNet | 网络异常显示布局  | reference（@LayoutRes） |
-| ls_emptyText | 空数据Model文本 | string |
-| ls_emptyIcon | 空数据Model图标 | reference（资源ID） |
-| ls_errorDataText | 数据异常Model文本 | string |
-| ls_errorDataIcon | 数据异常Model图标 | reference（资源ID） |
-| ls_errorNetText | 网络异常Model文本 | string |
-| ls_errorNetIcon | 网络异常Model图标 | reference（资源ID） |
+| 属性参数 |       描述       | 格式 |
+| :--------    |:--------------:| :--------    |
+| ls_layoutLoading |    加载时显示布局     | reference（@LayoutRes） |
+| ls_layoutEmptyData |    空数据显示布局     | reference（@LayoutRes） |
+| ls_layoutErrorData |    数据异常显示布局    | reference（@LayoutRes） |
+| ls_layoutErrorNet |    网络异常显示布局    | reference（@LayoutRes） |
+| ls_emptyText |   空数据Model文本   | string |
+| ls_emptyIcon |   空数据Model图标   | reference（资源ID） |
+| ls_errorDataText |  数据异常Model文本   | string |
+| ls_errorDataIcon |  数据异常Model图标   | reference（资源ID） |
+| ls_errorDataReloadText |  数据异常Model重载文本 | string |
+| ls_errorNetText |  网络异常Model文本   | string |
+| ls_errorNetIcon |  网络异常Model图标   | reference（资源ID） |
+| ls_errorNetReloadText |  网络异常Model重载文本 | string |
 
 ### 三、通过代码重写状态
 
