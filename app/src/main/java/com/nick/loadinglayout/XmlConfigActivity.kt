@@ -46,6 +46,11 @@ class XmlConfigActivity : AppCompatActivity() {
                 State.ErrorNetwork -> {
                     loadStateLayout?.state = State.AttachView
                 }
+
+                null -> {
+
+
+                }
             }
         }
 

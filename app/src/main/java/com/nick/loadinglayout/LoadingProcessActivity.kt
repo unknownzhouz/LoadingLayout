@@ -63,6 +63,7 @@ class LoadingProcessActivity : AppCompatActivity() {
                 val model = StateModel()
                 model.title = "数据异常\n替换新文本内容和新图标"
                 model.iconId = R.drawable.ic_computer
+                model.reloadText = "自定义重新载入文本"
                 model
             } else {
                 null

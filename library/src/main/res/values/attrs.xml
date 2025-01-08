@@ -23,10 +23,15 @@
 
         <attr name="ls_emptyText" format="string" />
         <attr name="ls_emptyIcon" format="reference" />
+
         <attr name="ls_errorDataText" format="string" />
         <attr name="ls_errorDataIcon" format="reference" />
+        <attr name="ls_errorDataReloadText" format="string" />
+
         <attr name="ls_errorNetText" format="string" />
         <attr name="ls_errorNetIcon" format="reference" />
+        <attr name="ls_errorNetReloadText" format="string" />
+
     </declare-styleable>
 
 </resources>

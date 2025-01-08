@@ -51,7 +51,9 @@ class ErrorDataView(context: Context, @LayoutRes resource: Int) : StateView(cont
             tvFailure?.setCompoundDrawablesWithIntrinsicBounds(0, it.iconId, 0, 0)
 
             // 重新加载
-            findViewById<View>(R.id.reloadView)?.setOnClickListener {
+            val reloadView = findViewById<TextView>(R.id.reloadView)
+            reloadView?.text = it.reloadText
+            reloadView?.setOnClickListener {
                 reload?.invoke()
             }
         }
@@ -68,10 +70,14 @@ class ErrorNetworkView(context: Context, @LayoutRes resource: Int) : StateView(c
             val tvNetworkError = findViewById<TextView>(R.id.tvNetworkError)
             tvNetworkError?.text = it.title
             tvNetworkError?.setCompoundDrawablesWithIntrinsicBounds(0, it.iconId, 0, 0)
+
             // 重新加载
-            findViewById<View>(R.id.reloadView)?.setOnClickListener {
+            val reloadView = findViewById<TextView>(R.id.reloadView)
+            reloadView?.text = it.reloadText
+            reloadView?.setOnClickListener {
                 reload?.invoke()
             }
+
         }
     }
 }

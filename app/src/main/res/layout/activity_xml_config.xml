@@ -70,9 +70,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:ls_emptyIcon="@drawable/bg1"
-            app:ls_emptyText="使用XML：空数据"
+            app:ls_emptyText="我是空数据"
             app:ls_errorNetIcon="@drawable/bg2"
-            app:ls_errorNetText="使用XML：网络异常">
+            app:ls_errorNetText="我得网络异常了~~"
+            app:ls_errorNetReloadText="自定义重载文本">
 
             <TextView
                 android:layout_width="wrap_content"

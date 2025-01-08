@@ -137,12 +137,15 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
                 State.EmptyData -> {
                     emptyModel
                 }
+
                 State.ErrorData -> {
                     errorDataModel
                 }
+
                 State.ErrorNetwork -> {
                     errorNetModel
                 }
+
                 else -> null
             }
         }
@@ -154,17 +157,29 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
                 State.AttachView -> {
                     view = null
                 }
+
                 State.Loading -> {
-                    view = LoadingView(context, layoutLoading)
+                    if (layoutLoading != 0) {
+                        view = LoadingView(context, layoutLoading)
+                    }
                 }
+
                 State.EmptyData -> {
-                    view = EmptyDataView(context, layoutEmptyData)
+                    if (layoutEmptyData != 0) {
+                        view = EmptyDataView(context, layoutEmptyData)
+                    }
                 }
+
                 State.ErrorData -> {
-                    view = ErrorDataView(context, layoutErrorData)
+                    if (layoutErrorData != 0){
+                        view = ErrorDataView(context, layoutErrorData)
+                    }
                 }
+
                 State.ErrorNetwork -> {
-                    view = ErrorNetworkView(context, layoutErrorNet)
+                    if (layoutErrorNet != 0){
+                        view = ErrorNetworkView(context, layoutErrorNet)
+                    }
                 }
             }
             return view
@@ -198,22 +213,24 @@ class LoadStateLayout @JvmOverloads constructor(context: Context, attrs: Attribu
             fun loadXmlConfig(context: Context, attrs: AttributeSet): StyleConfig {
                 val sc = StyleConfig()
                 val ta: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadStateLayout)
-                sc.layoutLoading = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutLoading, R.layout.view_load_state_start)
-                sc.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutEmptyData, R.layout.view_load_state_end_empty)
-                sc.layoutErrorData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorData, R.layout.view_load_state_end_failure)
-                sc.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorNet, R.layout.view_load_state_end_network_error)
+                sc.layoutLoading = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutLoading, 0)
+                sc.layoutEmptyData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutEmptyData, 0)
+                sc.layoutErrorData = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorData, 0)
+                sc.layoutErrorNet = ta.getResourceId(R.styleable.LoadStateLayout_ls_layoutErrorNet, 0)
 
                 val emptyText = ta.getString(R.styleable.LoadStateLayout_ls_emptyText) ?: ""
                 val emptyIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_emptyIcon, 0)
-                sc.emptyModel = StateModel.buildStateModel(emptyText, emptyIcon)
+                sc.emptyModel = StateModel.buildStateModel(emptyText, emptyIcon, "")
 
                 val errorDataText = ta.getString(R.styleable.LoadStateLayout_ls_errorDataText) ?: ""
                 val errorDataIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorDataIcon, 0)
-                sc.errorDataModel = StateModel.buildStateModel(errorDataText, errorDataIcon)
+                val errorDataReload = ta.getString(R.styleable.LoadStateLayout_ls_errorDataReloadText) ?: ""
+                sc.errorDataModel = StateModel.buildStateModel(errorDataText, errorDataIcon, errorDataReload)
 
                 val errorNetText = ta.getString(R.styleable.LoadStateLayout_ls_errorNetText) ?: ""
                 val errorNetIcon = ta.getResourceId(R.styleable.LoadStateLayout_ls_errorNetIcon, 0)
-                sc.errorNetModel = StateModel.buildStateModel(errorNetText, errorNetIcon)
+                val errorNetReload = ta.getString(R.styleable.LoadStateLayout_ls_errorNetReloadText) ?: ""
+                sc.errorNetModel = StateModel.buildStateModel(errorNetText, errorNetIcon, errorNetReload)
 
                 ta.recycle()
                 return sc
